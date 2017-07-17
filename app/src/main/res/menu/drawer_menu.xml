@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/menu_items"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/dashboard"
+            android:checked="true"
+            android:icon="@drawable/dash"
+            android:title="@string/nav_dashboard"/>
+        <item
+            android:id="@+id/profile"
+            android:checked="false"
+            android:icon="@drawable/profile"
+            android:title="@string/nav_profile"/>
+        <item
+            android:id="@+id/contact_admin"
+            android:checked="false"
+            android:icon="@drawable/contact"
+            android:title="@string/nav_contact"/>
+        <item
+            android:id="@+id/attendance"
+            android:checked="false"
+            android:icon="@drawable/records"
+            android:title="@string/nav_attendance"/>
+        <item
+            android:id="@+id/logout"
+            android:checked="false"
+            android:icon="@drawable/logout"
+            android:title="@string/nav_logout"/>
+
+    </group>
+
+</menu>
