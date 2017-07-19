@@ -1,6 +1,7 @@
 package com.example.joseph.webapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -18,19 +19,39 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
+
 import static android.view.View.Z;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class MainActivity extends AppCompatActivity  implements ZXingScannerView.ResultHandler, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler, View.OnClickListener {
+
     private ZXingScannerView mScannerView;
     private DrawerLayout mDrawer;
     FloatingActionButton fab;
     Context ctx;
+    User user;
+    LocalDb localDb;
+
+    private boolean isScannerOpen = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        //check user login here
+        localDb = new LocalDb(this);
+        if(!localDb.checkLogin()){
+
+            Intent loginIntent = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(loginIntent);
+
+        }
+
+        mScannerView = new ZXingScannerView(this);
+        mScannerView.setResultHandler(this);
 
         ctx = this;
         fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -53,6 +74,9 @@ public class MainActivity extends AppCompatActivity  implements ZXingScannerView
                 .replace(R.id.content_holder, new DashboardFragment()).commit();
 
         NavigationView nv = (NavigationView) findViewById(R.id.Navigation_view);
+
+
+
 
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -95,24 +119,43 @@ public class MainActivity extends AppCompatActivity  implements ZXingScannerView
             }
         });
     }
-    @Override
-    public void onClick (View v){
 
-        Toast.makeText(this,"Yo",Toast.LENGTH_LONG).show();
-        mScannerView = new ZXingScannerView(getApplicationContext());
+    @Override
+    public void onClick(View view) {
+        Toast.makeText(this, "Yo", Toast.LENGTH_LONG).show();
         setContentView(mScannerView);
-        mScannerView.setResultHandler(this);
         mScannerView.startCamera();
-
+        isScannerOpen = true;
     }
+
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
-        mScannerView.stopCamera();
-
+        if (isScannerOpen) {
+            mScannerView.stopCamera();
+        }
     }
+
     @Override
-    public void handleResult(Result result){
+    protected void onResume() {
+        super.onResume();
+        if (isScannerOpen) {
+            mScannerView.resumeCameraPreview(this);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isScannerOpen) {
+            mScannerView.setVisibility(View.GONE);
+            isScannerOpen = false;
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
+    public void handleResult(Result result) {
         //result handling code
         Log.v("handleResult", result.getText());
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -121,7 +164,9 @@ public class MainActivity extends AppCompatActivity  implements ZXingScannerView
         AlertDialog alertDialogue = builder.create();
         alertDialogue.show();
 
-
-        mScannerView.resumeCameraPreview(this);
+        isScannerOpen = false;
+//        mScannerView.stopCamera();
+//        mScannerView.setVisibility(View.GONE);
+//        setContentView(R.layout.activity_main);
     }
 }
