@@ -103,6 +103,17 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
                         toolbar.setTitle(R.string.nav_attendance);
                         break;
 
+                    case R.id.logout:
+                        fragment = new RecordsFragment();
+
+                        localDb.logout();
+                        localDb.logUserIn(false);
+
+                        Intent loginIntent = new Intent(MainActivity.this,LoginActivity.class);
+                        startActivity(loginIntent);
+
+                        break;
+
                     default:
                         fragment = new DashboardFragment();
                         toolbar.setTitle(R.string.nav_dashboard);

@@ -26,7 +26,7 @@ public class LocalDb {
 
         SharedPreferences.Editor spe = localStore.edit();
         spe.putInt("id",user.id);
-        spe.putInt("phone",user.phone);
+        spe.putString("phone",user.phone);
         spe.putString("name",user.name);
         spe.putString("regNo",user.regNo);
         spe.putString("id",user.password);
@@ -41,7 +41,7 @@ public class LocalDb {
         String password = localStore.getString("password","");
         String regNo = localStore.getString("regNo","");
         int id = localStore.getInt("id",-1);
-        int phone = localStore.getInt("phone",-1);
+        String phone = localStore.getString("phone","");
 
         User alreadyStoredUser = new User(id,name,phone,regNo,password);
         return alreadyStoredUser;

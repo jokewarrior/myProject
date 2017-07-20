@@ -25,6 +25,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import static android.R.attr.id;
+import static android.R.attr.name;
 import static com.example.joseph.webapp.R.drawable.email;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
@@ -40,6 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        localDb = new LocalDb(this);
 
         regNo = (EditText) findViewById(R.id.regNo);
         password = (EditText) findViewById(R.id.password);
@@ -74,7 +77,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String fetch_url, JSON_STRING;
         @Override
         protected void onPreExecute() {
-            fetch_url = "http://10.12.1.48/my_project/android/get_user.php";
+            //fetch_url = "http://192.168.43.196/my_project/android/get_user.php";
+            fetch_url = "http://www.peacosentertainment.com/get_user.php";
         }
 
         @Override
@@ -141,7 +145,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             try {
 
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
 
                 if(result != "" && result != null){
 
@@ -153,26 +157,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                     Boolean status = Boolean.valueOf(neededUserDetails.getString("status"));
 
-
+                    //Toast.makeText(getApplicationContext(), status.toString(), Toast.LENGTH_LONG).show();
 
                     if(status){
 
+                        //Toast.makeText(getApplicationContext(), "ghyuu", Toast.LENGTH_LONG).show();
 
                         String name = neededUserDetails.getString("Name");
-                        int phone = neededUserDetails.getInt("Phone");
                         String rn = neededUserDetails.getString("RegNo");
                         String pw = neededUserDetails.getString("Password");
 
 
                         int id = Integer.parseInt(neededUserDetails.getString("id"));
+                        String phone = neededUserDetails.getString("Phone");
 
 
                         User user = new User(id,name,phone,rn,pw);
 
-                        //logUserIn(user);
+                        logUserIn(user);
 //
 //
-                        Toast.makeText(getApplicationContext(), "Yes, User Found!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), name, Toast.LENGTH_LONG).show();
 //
                     }
                     else{
@@ -202,9 +207,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         localDb.storeUser(user);
         localDb.logUserIn(true);
-        //Toast.makeText(getApplicationContext(), "Yes", Toast.LENGTH_LONG).show();
-//        Intent i = new Intent(this,MainActivity.class);
-//        startActivity(i);
+        Toast.makeText(getApplicationContext(), "Yes", Toast.LENGTH_LONG).show();
+        Intent i = new Intent(this,MainActivity.class);
+        startActivity(i);
 
     }
 

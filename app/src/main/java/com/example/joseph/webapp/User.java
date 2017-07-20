@@ -6,9 +6,9 @@ package com.example.joseph.webapp;
 
 public class User {
 
-    int id,phone;
-    String name,regNo,password;
-    public User(int id, String name, int phone, String regNo, String password){
+    int id;
+    String name,regNo,password,phone;
+    public User(int id, String name, String phone, String regNo, String password){
 
         this.id = id;
         this.name = name;
