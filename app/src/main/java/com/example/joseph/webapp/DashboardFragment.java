@@ -18,6 +18,9 @@ public class DashboardFragment extends Fragment {
         // Required empty public constructor
     }
 
+    private void viewUsersDetails(){
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
