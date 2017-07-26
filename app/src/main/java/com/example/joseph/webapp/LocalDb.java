@@ -29,7 +29,7 @@ public class LocalDb {
         spe.putString("phone",user.phone);
         spe.putString("name",user.name);
         spe.putString("regNo",user.regNo);
-        spe.putString("id",user.password);
+        spe.putString("password",user.password);
         spe.commit();
 
 

@@ -24,25 +24,22 @@
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
             android:text="NNAJI JOSEPH C"
+            android:id="@+id/name"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:textSize="25sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2012/181399"
+            android:id="@+id/reg"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="jokewarrior@gmail.com"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            android:textSize="18sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="07067933625"
+            android:id="@+id/phone"
             android:padding="@dimen/activity_vertical_margin"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
 

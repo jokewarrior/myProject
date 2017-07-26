@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 /**
@@ -13,6 +14,9 @@ import android.view.ViewGroup;
  */
 public class DashboardFragment extends Fragment {
 
+    User user;
+    LocalDb localDb;
+    TextView name, reg;
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -26,7 +30,20 @@ public class DashboardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
+        localDb = new LocalDb(getActivity().getApplicationContext());
+        if(localDb.checkLogin()){
+
+            user = localDb.getUser();
+            name = (TextView) view.findViewById(R.id.name);
+            reg = (TextView) view.findViewById(R.id.reg);
+
+            name.setText(user.name);
+            reg.setText(user.regNo);
+
+        }
+        return view;
     }
 
 }

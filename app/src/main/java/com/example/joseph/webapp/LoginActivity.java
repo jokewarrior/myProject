@@ -77,8 +77,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String fetch_url, JSON_STRING;
         @Override
         protected void onPreExecute() {
-            //fetch_url = "http://192.168.43.196/my_project/android/get_user.php";
-            fetch_url = "http://www.peacosentertainment.com/get_user.php";
+
+            fetch_url = "http://www.jetcitytechnologies.com.ng/android/get_user.php";
         }
 
         @Override
@@ -210,6 +210,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Toast.makeText(getApplicationContext(), "Yes", Toast.LENGTH_LONG).show();
         Intent i = new Intent(this,MainActivity.class);
         startActivity(i);
+        finish();
 
     }
 
